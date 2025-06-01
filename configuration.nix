@@ -36,21 +36,14 @@
     shakhzod = {
       isNormalUser = true;
       extraGroups = [ "wheel" ];
-      openssh.authorizedKeys.keys = [
-      lib.strings.concatStrings [
-        "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDGU7pRKuTWfzRy8+"
-        "Hb6vKz4+FNKfDzKA0HCLw+cxDCVXqsCBJPZXTfUZV1fxfBhfgn2IBO"
-        "w99DbnmRaYeSm48ZB7V0xwqgM8Ucy2m4MJytvPbyjoEcfV434J3Xm+"
-        "1R5P4tn5BvFPPseBBFrahsKXvakT07hiEJe6S28KuC3zvMN/cORfGu"
-        "ViGuZRslRuT3ozd8pJtDcWSod5f3ek59qwYrC8KS8ljR7kBJWgdJvA"
-        "OyifuDd9POh4TcbXOykcDqYKlZlWLnFoZcCE3QUcOAELyBffEtMFRd"
-        "/4N+Mgwdf6Y4YjspHNDfnSKRgNQVH/zYBnIV9jt/umdAyN9Kby0v/E"
-        "Gv9HI0Kb5t2/eCLPCDSyb4AQChb25xMTkGXcXcqIrLCWl6oR1/QfqU"
-        "fuC8KJRp5Nj9saoi9pxtzAqU4/EXXL1EwYHaICK4LOYW+2la05Pv8w"
-        "zX4ne9Xpoo0jJNCHioYacvJC1noWrDSmRU6oEhQqHKGBQU0drC/pYL"
-        "mZhjAhi0JQE="
-      ]
-      ];
+      openssh.authorizedKeys.keys = lib.strings.splitString "\n" (
+        builtins.readFile (
+          builtins.fetchurl {
+            url = "https://github.com/shakhzodkudratov.keys";
+            sha256 = "0gnabwywc19947a3m4702m7ibhxmc5s4zqbhsydb2wq92k6qgh6g";
+          }
+        )
+      );
     };
   };
   
